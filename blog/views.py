@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from blog.models import Blog, Blogger
 from django.views import generic
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
+from blog.forms import CommentForm
 # Create your views here.
 
 def index(request):
@@ -42,3 +44,10 @@ class BloggerDetailView(generic.DetailView):
 
 
 
+@login_required
+def add_comment(request, pk):
+    form = CommentForm(request.POST)
+    context = {'form':form}
+    return render(request, 'blog/add_comment.html', context)
+
+    
