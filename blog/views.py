@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from blog.models import Blog, Blogger
+from django.views import generic
 # Create your views here.
 
 def index(request):
@@ -21,3 +22,13 @@ def index(request):
 
     # Render the HTML template index.html with the data in the context variable
     return render(request, 'index.html', context=context)
+
+class BlogListView(generic.ListView):
+    model = Blog
+    paginate_by = 5
+
+    def get_queryset(self):
+        return Blog.objects.order_by('-post_date')
+
+
+
