@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from blog.models import Blog, Blogger
 from django.views import generic
+from django.urls import reverse
 # Create your views here.
 
 def index(request):
@@ -29,6 +30,9 @@ class BlogListView(generic.ListView):
 
     def get_queryset(self):
         return Blog.objects.order_by('-post_date')
+
+class BlogDetailView(generic.DetailView):
+    model = Blog
 
 
 
