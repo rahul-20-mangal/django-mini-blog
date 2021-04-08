@@ -26,6 +26,10 @@ class Blogger(models.Model):
         """String for representing the Model object."""
         return f'{self.name}'
 
+    def get_absolute_url(self):
+        """Returns the url to access a particular author instance."""
+        return reverse('blogger-detail', args=[str(self.id)])
+
 class Comment(models.Model):
     ''' Model representing a comment by a user for a blog'''
     description = models.TextField(max_length=1000, help_text='Enter the comment about the blog')

@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<h1>Blogger: {{ blogger.name }} </h1>
+<p><b>Biographical description: </b>{{ blogger.bio_information}}</p>
+
+<div style="margin-left:20px;margin-top:20px">
+<h4>Blogs</h4>
+
+<ul>
+    {% for blog in blogger.blog_set.all %}
+        <li><a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a></li>
+    {% endfor %}
+</ul>
+
+</div>
+{% endblock %}
