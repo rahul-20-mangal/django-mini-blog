@@ -1,16 +1,32 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Blog List</h1>
-  {% if blog_list %}
-  <ul>
-    {% for blog in blog_list %}
-      <li>
-        <a href="{{ blog.get_absolute_url }}">{{ blog.title }}</a> ({{blog.post_date}})---<a href="{% url 'blogger-detail' blog.blog_author.pk %}">{{blog.blog_author}}</a>
-      </li>
-    {% endfor %}
-  </ul>
-  {% else %}
-    <p>There are no Blogs.</p>
-  {% endif %} 
+<div class="container my-4">
+  <div class="row mb-2">
+
+    {% if blog_list %}
+
+      {% for blog in blog_list %}
+
+      <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 text-primary">{{ blog.title }}</strong>
+            <h3 class="mb-0">{{blog.blog_author}}</h3>
+            <div class="mb-1 text-muted">{{ blog.post_date }}</div>
+            <p class="card-text mb-auto">{{ blog.content|striptags|truncatechars:100}}</p>
+            <a href="{{ blog.get_absolute_url }}" class="stretched-link">Continue reading</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    {% else %}
+      <p>There are no Blogs.</p>
+    {% endif %}
+    
+  </div>
+</div>
+
 {% endblock %}

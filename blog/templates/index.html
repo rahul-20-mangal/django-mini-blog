@@ -1,13 +1,13 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h1>Blog Home Page</h1>
-  <p>Welcome to Blogs, a website developed by <em>Rahul Mangal</em>!</p>
-  <h2>Dynamic content</h2>
-  <p>The Blogs has the following record counts:</p>
-  <ul>
-    <li><strong>Blogs:</strong> {{ num_blog }}</li>
-    <li><strong>Bloggers:</strong> {{ num_blogger }}</li>
-  </ul>
-  <p>You have visited this page {{ num_visits }} time{% if num_visits > 1 %}s{% endif %}.</p>
+<h1>Blog Home Page</h1>
+<p>Welcome to Blogs, a website developed by <em>Rahul Mangal</em>!</p>
+<h2>Dynamic content</h2>
+<p>The Blogs has the following record counts:</p>
+<ul>
+  <li><strong>Blogs:</strong> {{ num_blog }}</li>
+  <li><strong>Bloggers:</strong> {{ num_blogger }}</li>
+</ul>
+<p>You have visited this page {{ num_visits }} time{% if num_visits > 1 %}s{% endif %}.</p>
 {% endblock %}
