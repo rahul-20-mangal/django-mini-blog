@@ -4,7 +4,7 @@ from django.urls import reverse
 # Create your models here.
 
 class Blog(models.Model):
-    title = models.CharField(max_length=200, help_text='Enter a tite of blog')
+    title = models.CharField(max_length=200)
     # Foreign Key used because blog can only have one blogger, but blogger can have multiple blogs
     blog_author = models.ForeignKey('Blogger', on_delete=models.SET_NULL, null=True)
     content = models.TextField(max_length=1000, blank=True)
@@ -20,7 +20,7 @@ class Blog(models.Model):
 
 class Blogger(models.Model):
     name = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    bio_information = models.TextField(max_length=1000, help_text='Enter a biographical information about the blogger/author')
+    bio_information = models.TextField(max_length=1000, null=True)
 
     def __str__(self):
         """String for representing the Model object."""
@@ -32,10 +32,11 @@ class Blogger(models.Model):
 
 class Comment(models.Model):
     ''' Model representing a comment by a user for a blog'''
-    description = models.TextField(max_length=1000, help_text='Enter the comment about the blog')
+    description = models.TextField(max_length=1000)
     blog = models.ForeignKey('Blog', on_delete=models.CASCADE, null=True)
+    date_time = models.DateTimeField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         """String for representing the Model object."""
-        return f'{self.id} ({self.blog.title})'
+        return f'{self.user} ({self.blog})'
