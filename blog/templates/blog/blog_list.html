@@ -14,8 +14,8 @@
           <div class="card-body">
             <p><a href="{{ blog.get_absolute_url }}">{{blog.title}}</a></p>
             <p class="card-text">{{blog.content|striptags|truncatechars:100}}<a href="{{ blog.get_absolute_url }}">Continue reading</a></p>
-            <p><a href="">{{blog.blog_author}}</a> - {{blog.post_date}}</p>
-
+            <p><a href="{{ blog.blog_author.get_absolute_url }}">{{blog.blog_author}}</a> - {{blog.post_date}}</p>
+            
           </div>
         </div>
       </div>
