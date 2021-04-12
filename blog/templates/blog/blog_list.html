@@ -1,32 +1,31 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-<div class="container my-4" style=text-align:center>
-  <div class="row mb-2">
 
-    {% if blog_list %}
 
+<div class="album py-5 bg-light">
+  <div class="container">
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      {% if blog_list %}
       {% for blog in blog_list %}
+      <div class="col">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <p><a href="{{ blog.get_absolute_url }}">{{blog.title}}</a></p>
+            <p class="card-text">{{blog.content|striptags|truncatechars:100}}<a href="{{ blog.get_absolute_url }}">Continue reading</a></p>
+            <p><a href="">{{blog.blog_author}}</a> - {{blog.post_date}}</p>
 
-      <div class="col-md-6" >
-        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-
-          <div class="col p-4 d-flex flex-column position-static">
-            <strong class="d-inline-block mb-2 text-primary">{{ blog.title }}</strong>
-            <h5 class="mb-0">By: {{blog.blog_author}}</h5>
-            <div class="mb-1 text-muted">{{ blog.post_date }}</div>
-            <p class="card-text mb-auto">{{ blog.content|striptags|truncatechars:100}}</p>
-            <a href="{{ blog.get_absolute_url }}" class="stretched-link">Continue reading</a>
           </div>
         </div>
       </div>
       {% endfor %}
-
-    {% else %}
+      {% else %}
       <p>There are no Blogs.</p>
     {% endif %}
-    
+    </div>
   </div>
+</div>
 </div>
 
 {% endblock %}
