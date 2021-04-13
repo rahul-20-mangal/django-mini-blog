@@ -43,7 +43,7 @@
           </li>
 
         </ul>
-        <div class="mx-2">
+        <div class="mx-3">
           {% if user.is_authenticated %}
 
           <button class="btn btn-outline-secondary">{{ user.get_username }}</button>
@@ -56,6 +56,7 @@
               href="{% url 'login'%}?next={{request.path}}">Login</a></button>
 
           {% endif %}
+          <button class="btn btn-outline-info"><a class="nav-link" href="{% url 'signup' %}?next={{request.path}}">Signup</a></button>
         </div>
       </div>
     </div>
