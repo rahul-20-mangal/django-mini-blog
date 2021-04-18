@@ -9,18 +9,29 @@
     <p><strong>Content:</strong> {{ blog.content }}</p>
 
     <h2>Comments</h2>
+
+    <a href="{% url 'add-comment' pk=blog.pk %}"><button class="btn btn-primary">Add Comment</button></a>
+
     {% if blog.comment_set.all.count == 0 %}
-    <p>There are no comments</p>
+        <p>There are no comments</p>
     {% else %}
     <ul>
         {% for comment in blog.comment_set.all %}
-        <li>{{ comment.user }}--{{ comment.date_time}}--{{ comment.description }}</li>
+
+        <b>{{ comment.user }}</b> &nbsp {{ comment.date_time}}
+
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            {% if comment.user == request.user %}
+                <a href="{% url 'edit-comment' pk=comment.pk %}"><button class="btn btn-warning">Edit</button></a>
+                <a href="{% url 'delete-comment' pk=comment.pk %}"><button class="btn btn-danger">Delete</button></a>
+            {% endif %}
+        </div>
+        <p>{{ comment.description }}</p>
+        <hr>
         {% endfor %}
     </ul>
 
     {%endif%}
-
-    <a href="{% url 'add-comment' pk=blog.pk %}">Add Comments</a>
 
 </div>
 

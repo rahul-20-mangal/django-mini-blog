@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
-from blog.models import Blog, Blogger
+from blog.models import Blog, Blogger, Comment
 from django.views import generic
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
@@ -67,6 +67,31 @@ def add_comment(request, pk):
         form = CommentForm()
 
     return render(request, 'blog/add_comment.html', {'form': form})
+
+@login_required
+def edit_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+
+    form = CommentForm(request.POST or None, instance=comment)
+
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.save()
+            
+        return redirect('blog-detail', pk=comment.blog.pk)
+    
+    context = {
+        "form":form
+    }
+    return render(request, 'blog/edit_comment.html', context)
+
+@login_required
+def delete_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    blog_id = comment.blog.pk
+    comment.delete()
+
+    return redirect('blog-detail', pk=blog_id)
 
 @login_required
 def create_blog(request):
