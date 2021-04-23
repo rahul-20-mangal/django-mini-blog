@@ -8,6 +8,25 @@
     <p><strong>Date:</strong> {{ blog.post_date }}</p>
     <p><strong>Content:</strong> {{ blog.content }}</p>
 
+    <p>{{ request.user }}</p>
+    <p>{{ blog.blog_author }}</p>
+    
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        
+            <a href="{% url 'edit-blog' pk=blog.pk %}"><button class="btn btn-warning">Edit</button></a>
+            <a href="{% url 'delete-blog' pk=blog.pk %}"><button class="btn btn-danger">Delete</button></a>
+       
+    </div>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        {% if blog.blog_author == request.user %}
+            <a href="{% url 'edit-blog' pk=blog.pk %}"><button class="btn btn-warning">Edit</button></a>
+            <a href="{% url 'delete-blog' pk=blog.pk %}"><button class="btn btn-danger">Delete</button></a>
+        {% endif %}
+    </div>
+
+    <hr>
+
     <h2>Comments</h2>
 
     <a href="{% url 'add-comment' pk=blog.pk %}"><button class="btn btn-primary">Add Comment</button></a>

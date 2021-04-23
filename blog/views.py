@@ -83,7 +83,7 @@ def edit_comment(request, pk):
     context = {
         "form":form
     }
-    return render(request, 'blog/edit_comment.html', context)
+    return render(request, 'blog/add_comment.html', context)
 
 @login_required
 def delete_comment(request, pk):
@@ -92,6 +92,7 @@ def delete_comment(request, pk):
     comment.delete()
 
     return redirect('blog-detail', pk=blog_id)
+
 
 @login_required
 def create_blog(request):
@@ -112,6 +113,27 @@ def create_blog(request):
         form = BlogForm()
 
     return render(request, 'blog/create_blog.html', {'form': form})
+
+@login_required
+def edit_blog(request, pk):
+    blog = get_object_or_404(Blog, pk=pk)
+    form = BlogForm(request.POST or None, instance=blog)
+
+    if form.is_valid():
+        blog = form.save(commit=False)
+        blog.save()
+        return redirect('blog-detail', pk=blog.pk)
+    
+    context = {
+        "form":form
+    }
+    return render(request, 'blog/create_blog.html', context)
+
+@login_required
+def delete_blog(request, pk):
+    blog = get_object_or_404(Blog, pk=pk)
+    blog.delete()
+    return redirect('blogs')
 
 
 def signup(request):
